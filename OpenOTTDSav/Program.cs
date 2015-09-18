@@ -46,7 +46,10 @@ namespace OpenOTTDMapDump
 
     static void Main(string[] args)
     {
-      string sFile = @"C:\Users\e.renes\Documents\OpenTTD\save\test3.sav";
+      if (args.Length == 0)
+        return;
+      string sFile = args[0];
+      // string sFile = @"C:\Users\e.renes\Documents\OpenTTD\save\test3.sav";
       DoLoad(sFile);
       Map.ToBitmap(sFile.Replace(".sav", ".png"));
     }
