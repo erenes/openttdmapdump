@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenOTTDMapDump
 {
-  struct SLVersion
+  public struct SLVersion
   {
     public UInt16 major;
     public byte minor;
@@ -45,9 +45,18 @@ namespace OpenOTTDMapDump
   /// <summary>
   /// SaveLoad class
   /// </summary>
-  internal static class SL
+  public static class SL
   {
     static MemoryStream reader = null;
+    static Game _g;
+    public static Game game
+    {
+      get
+      {
+        if (_g == null) _g = new Game();
+        return _g;
+      }
+    }
 
     internal static void DoLoad(string sFileName)
     {
@@ -63,11 +72,23 @@ namespace OpenOTTDMapDump
       SLVersion ver;
       ver.major = (UInt16)(hdr[1] >> 16);
       ver.minor = (byte)((hdr[1] >> 8) & 0xFF);
+      game.Version = ver;
 
       Console.WriteLine("Loading savegame version {0}", ver);
       reader = LoadFilter.Extract(s, (SLFormat)hdr[0]);
 
       LoadChunks();
+    }
+
+    public static bool IsSavegameVersionBefore(UInt16 major, byte minor = 0)
+    {
+      return game.Version.major < major || (minor > 0 && game.Version.major == major && game.Version.minor < minor);
+    }
+
+    public static bool SlIsObjectValidInSavegame(int version_from, int version_to)
+    {
+      if (game.Version.major < version_from || game.Version.major > version_to) return false;
+      return true;
     }
 
     private static void LoadChunks()
@@ -90,7 +111,7 @@ namespace OpenOTTDMapDump
     {
       byte m = SlReadByte();
       int len;
-      long endoffset; 
+      long endoffset;
 
       switch ((ChunkType)m)
       {

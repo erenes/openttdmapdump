@@ -17,7 +17,7 @@ namespace OpenOTTDMapDump
       string sFile = args[0];*/
       string sFile = @"C:\Users\e.renes\Documents\OpenTTD\save\test3.sav";
       SL.DoLoad(sFile);
-      Map.ToBitmap(sFile.Replace(".sav", ".png"));
+      SL.game.map.ToBitmap(sFile.Replace(".sav", ".png"));
 
       Console.ReadKey();
     }

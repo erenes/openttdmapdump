@@ -7,7 +7,7 @@
     <ProjectGuid>{CC892412-277F-467E-A835-9F6D27A38A78}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OpenOTTDSav</RootNamespace>
+    <RootNamespace>OpenOTTDMapDump</RootNamespace>
     <AssemblyName>OpenOTTDSav</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChunkHandler.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="LoadFilters.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Program.cs" />

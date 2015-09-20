@@ -20,16 +20,25 @@ namespace OpenOTTDMapDump
     public byte m3;          //< General purpose
     public byte m4;          //< General purpose
     public byte m5;          //< General purpose
+    public byte m6;          //< General purpose
+    public byte m7;          //< Primarily used for newgrf support 
   };
 
-  public static class Map
+  public class Map
   {
-    internal static uint _map_dim_x;
-    internal static uint _map_dim_y;
-    internal static int _max_height; 
-    internal static Tile[] Tiles;
+    internal uint _map_dim_x;
+    internal uint _map_dim_y;
+    internal int _max_height; 
+    internal Tile[] Tiles;
 
-    internal static void ToBitmap(string sPath)
+    public Map(uint xSize, uint ySize)
+    {
+      _map_dim_x = xSize;
+      _map_dim_y = ySize;
+      Tiles = new Tile[_map_dim_x * _map_dim_y];
+    }
+
+    public void ToBitmap(string sPath)
     {
       Bitmap b = new Bitmap((int)_map_dim_x, (int)_map_dim_y);
       Color[] colors = new Color[_max_height + 1];
